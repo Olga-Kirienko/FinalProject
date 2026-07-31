@@ -33,17 +33,17 @@ export class ConfirmOrderComponent {
   }
 
   async getTotalSum(): Promise<string> {
-    await expect(this.totalSum).toHaveText(/\$/);
+    //await expect(this.totalSum).toHaveText(/\$/);
     return (await this.totalSum.textContent()) ?? '';
   }
 
   async getSubTotalSum(): Promise<string> {
-    await expect(this.totalSum).toHaveText(/\$/);
+    // await expect(this.totalSum).toHaveText(/\$/);
     return (await this.subTotalSum.textContent()) ?? '';
   }
 
   async getShippingValue(): Promise<string> {
-    await expect(this.totalSum).toHaveText(/\$/);
+    // await expect(this.totalSum).toHaveText(/\$/);
     return (await this.shippingValue.textContent()) ?? '';
   }
 

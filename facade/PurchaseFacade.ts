@@ -123,10 +123,6 @@ export class PurchaseFacade {
     await paymentMethodSavedPromise;
     await confirmResponsePromise;
 
-    // Дожидаемся, что первая строка товара реально отрисовалась в DOM,
-    // прежде чем читать данные таблицы (ответ по сети уже пришёл,
-    // но браузеру нужно время вставить HTML)
-
     const orderSummary: OrderSummary = {
       lineItems: await confirmOrder.getLineItems(),
       subtotal: await confirmOrder.getSubTotalSum(),
