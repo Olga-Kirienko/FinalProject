@@ -7,7 +7,10 @@ export class ProductPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.productTitle = page.getByRole('heading', { level: 1 });
+    // Store logo is also <h1>, so scope to #content to keep the product title unique
+    this.productTitle = page
+      .locator('#content')
+      .getByRole('heading', { level: 1 });
     // There are 2 buttons 'Add to Cart' on the page. 'getByRole' isn't unique
     // That's why here we use css locator
     this.addToCartButton = page.locator('#button-cart');

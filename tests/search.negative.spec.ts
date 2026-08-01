@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { noResultsSearchCases } from '../test-data/no-results-search.data';
 import { Header } from '../components/Header';
+import { ProductListingPage } from '../pages/ProductListingPage';
 
 test.describe('Search with no results', () => {
   for (const searchCase of noResultsSearchCases) {
@@ -8,12 +9,12 @@ test.describe('Search with no results', () => {
       page,
     }) => {
       const header = new Header(page);
+      const productListingPage = new ProductListingPage(page);
+
       await page.goto('/');
       await header.searchFor(searchCase.query, 'enter');
 
-      await expect(
-        page.getByRole('button', { name: 'Add to Cart' })
-      ).toHaveCount(0);
+      await expect(productListingPage.addToCartButtons).toHaveCount(0);
     });
   }
 });
