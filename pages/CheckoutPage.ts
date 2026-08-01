@@ -27,9 +27,7 @@ export class CheckoutPage extends BasePage {
     this.paymentMethodSection = page
       .locator('div.panel')
       .filter({ hasText: 'Payment Method' });
-    this.confirmOrderSection = page
-      .locator('div.panel')
-      .filter({ hasText: 'Confirm Order' });
+    this.confirmOrderSection = page.locator('#collapse-checkout-confirm');
   }
 
   getBillingDetails(): AddressDetailsComponent {

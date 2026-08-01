@@ -17,10 +17,7 @@ export class PaymentMethodComponent {
     const radio = this.section.getByRole('radio', { name: method });
     await radio.click();
 
-    const isChecked = await radio.evaluate(
-      (el: HTMLInputElement) => el.checked
-    );
-    console.log(`Radio "${method}" checked state:`, isChecked);
+    await radio.evaluate((el: HTMLInputElement) => el.checked);
   }
 
   async fillOrderComment(text: string): Promise<void> {

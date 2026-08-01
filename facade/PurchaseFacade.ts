@@ -6,7 +6,7 @@ import { Header } from '../components/Header';
 import { CheckoutOptions } from '../types/CheckoutOptions';
 import { CheckoutPage } from '../pages/CheckoutPage';
 import { createRandomAddress } from '../factory/addressFactory';
-import { OrderSummary } from '../types/OrderSummary';
+import { ConfirmOrderComponent } from '../components/checkout/ConfirmOrderComponent';
 
 export class PurchaseFacade {
   readonly page: Page;
@@ -41,7 +41,14 @@ export class PurchaseFacade {
     }
   }
 
-  async completeCheckout(options: CheckoutOptions): Promise<OrderSummary> {
+  /**
+   * Проходит все шаги чекаута (корзина -> billing -> delivery ->
+   * delivery method -> payment) и останавливается на Step 6: Confirm Order,
+   * ничего там не нажимая и не читая. Кнопку Confirm Order не нажимает.
+   */
+  async proceedToConfirmOrder(
+    options: CheckoutOptions
+  ): Promise<ConfirmOrderComponent> {
     const checkoutPage = new CheckoutPage(this.page);
     const header = new Header(this.page);
     const address = createRandomAddress();
@@ -123,13 +130,16 @@ export class PurchaseFacade {
     await paymentMethodSavedPromise;
     await confirmResponsePromise;
 
-    const orderSummary: OrderSummary = {
-      lineItems: await confirmOrder.getLineItems(),
-      subtotal: await confirmOrder.getSubTotalSum(),
-      shipping: await confirmOrder.getShippingValue(),
-      total: await confirmOrder.getTotalSum(),
-    };
+    return confirmOrder;
+  }
+
+  /**
+   * Полный чекаут: доходит до Step 6, нажимает Confirm Order и ожидает
+   * переход на страницу успешного оформления заказа. Таблицу с товарами
+   * и суммами не читает — см. checkout.orderSummary.spec.ts.
+   */
+  async completeCheckout(options: CheckoutOptions): Promise<void> {
+    const confirmOrder = await this.proceedToConfirmOrder(options);
     await confirmOrder.confirmOrder();
-    return orderSummary;
   }
 }

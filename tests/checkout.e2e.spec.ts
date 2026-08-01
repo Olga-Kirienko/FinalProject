@@ -5,7 +5,7 @@ import { existingProducts } from '../test-data/existing-products.data';
 import { OrderSuccessComponent } from '../components/checkout/OrderSuccessComponent';
 
 test.describe('Checkout e2e', () => {
-  test("e2e test with 1 item, method 'Cash On Delivery' and comment", async ({
+  test('e2e checkout flow with multiple items, Bank Transfer, no comment', async ({
     page,
   }) => {
     test.setTimeout(60000);
@@ -17,9 +17,14 @@ test.describe('Checkout e2e', () => {
           productName: existingProducts.imac.product,
           quantity: 1,
         },
+        {
+          productId: existingProducts.samsungMonitor.id,
+          productName: existingProducts.samsungMonitor.product,
+          quantity: 2,
+        },
       ],
-      paymentMethod: 'Cash On Delivery',
-      comment: 'Please deliver in the morning',
+      paymentMethod: 'Bank Transfer',
+      // comment не передаём
     };
 
     const facade = new PurchaseFacade(page);
