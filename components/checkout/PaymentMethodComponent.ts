@@ -1,4 +1,4 @@
-import { type Locator } from '@playwright/test';
+import { type Locator, expect } from '@playwright/test';
 
 export class PaymentMethodComponent {
   readonly section: Locator;
@@ -16,6 +16,7 @@ export class PaymentMethodComponent {
   async selectPaymentMethod(method: string): Promise<void> {
     const radio = this.section.getByRole('radio', { name: method });
     await radio.click();
+    //await expect(radio).toBeChecked();
 
     await radio.evaluate((el: HTMLInputElement) => el.checked);
   }

@@ -24,7 +24,6 @@ test.describe('Checkout e2e', () => {
         },
       ],
       paymentMethod: 'Bank Transfer',
-      // comment не передаём
     };
 
     const facade = new PurchaseFacade(page);

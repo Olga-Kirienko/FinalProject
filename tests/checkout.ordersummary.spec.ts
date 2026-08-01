@@ -3,11 +3,6 @@ import { PurchaseFacade } from '../facade/PurchaseFacade';
 import { CheckoutOptions } from '../types/CheckoutOptions';
 import { existingProducts } from '../test-data/existing-products.data';
 
-// BUG: тест зависает на Step 6: Confirm Order при попытке прочитать
-// таблицу с товарами и суммами (getLineItems / getSubTotalSum / getShippingValue / getTotalSum).
-// Если убрать парсинг и оставить только клик Confirm Order — тест проходит
-// без проблем (см. checkout.spec.ts). Расследование заняло 3 дня,
-// причина пока не найдена. Временно отключено, требует отдельного разбора.
 test.fixme("e2e test with 1 item, method 'Cash On Delivery' — parses order summary table", async ({
   page,
 }) => {

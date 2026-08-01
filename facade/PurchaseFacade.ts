@@ -41,11 +41,6 @@ export class PurchaseFacade {
     }
   }
 
-  /**
-   * Проходит все шаги чекаута (корзина -> billing -> delivery ->
-   * delivery method -> payment) и останавливается на Step 6: Confirm Order,
-   * ничего там не нажимая и не читая. Кнопку Confirm Order не нажимает.
-   */
   async proceedToConfirmOrder(
     options: CheckoutOptions
   ): Promise<ConfirmOrderComponent> {
@@ -133,11 +128,6 @@ export class PurchaseFacade {
     return confirmOrder;
   }
 
-  /**
-   * Полный чекаут: доходит до Step 6, нажимает Confirm Order и ожидает
-   * переход на страницу успешного оформления заказа. Таблицу с товарами
-   * и суммами не читает — см. checkout.orderSummary.spec.ts.
-   */
   async completeCheckout(options: CheckoutOptions): Promise<void> {
     const confirmOrder = await this.proceedToConfirmOrder(options);
     await confirmOrder.confirmOrder();

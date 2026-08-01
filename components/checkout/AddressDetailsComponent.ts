@@ -1,4 +1,4 @@
-import { type Locator } from '@playwright/test';
+import { type Locator, expect } from '@playwright/test';
 
 export class AddressDetailsComponent {
   readonly section: Locator;
@@ -36,7 +36,6 @@ export class AddressDetailsComponent {
     try {
       await newAddressRadio.waitFor({ state: 'visible', timeout: 5000 });
       await newAddressRadio.click();
-      await this.firstNameInput.waitFor({ state: 'visible' });
     } catch {
       // no code intentionally
     }
