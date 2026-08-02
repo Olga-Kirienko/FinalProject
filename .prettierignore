@@ -1,0 +1,5 @@
+.auth/
+playwright-report/
+allure-results/
+allure-history/
+test-results/

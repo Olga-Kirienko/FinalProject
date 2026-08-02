@@ -72,7 +72,6 @@ jobs:
           path: allure-results
           retention-days: 10
 
-  
   report:
     needs: test
     if: always()
