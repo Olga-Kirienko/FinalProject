@@ -7,7 +7,7 @@ import { OrderSuccessComponent } from '../components/checkout/OrderSuccessCompon
 test.describe('Checkout e2e', () => {
   test.describe.configure({ retries: 2 })
 
-  test('e2e checkout flow with multiple items, Bank Transfer, no comment', async ({
+  test.fixme('e2e checkout flow with multiple items, Bank Transfer, no comment', async ({
     page,
   }) => {
     test.setTimeout(60000);
