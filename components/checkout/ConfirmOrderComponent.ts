@@ -1,4 +1,4 @@
-import { type Locator, expect } from '@playwright/test';
+import { type Locator } from '@playwright/test';
 import { LineItem } from '../../types/LineItem';
 
 export class ConfirmOrderComponent {

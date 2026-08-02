@@ -7,8 +7,6 @@ export function createRandomUser(): User {
     lastName: faker.person.lastName(),
     email: faker.internet.email(),
     telephone: faker.phone.number(),
-    password: faker.internet.password({ length: 10 })
+    password: faker.internet.password({ length: 10 }),
   };
 }
-
-

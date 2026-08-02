@@ -5,7 +5,7 @@ import { existingProducts } from '../test-data/existing-products.data';
 import { OrderSuccessComponent } from '../components/checkout/OrderSuccessComponent';
 
 test.describe('Checkout e2e', () => {
-  test.describe.configure({ retries: 2 })
+  test.describe.configure({ retries: 2 });
 
   test.fixme('e2e checkout flow with multiple items, Bank Transfer, no comment', async ({
     page,

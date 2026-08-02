@@ -1,13 +1,13 @@
 import { Page } from '@playwright/test';
 
 export class BasePage {
-    protected readonly page: Page;
+  protected readonly page: Page;
 
-    constructor(page: Page) {
-        this.page = page;
-    }
+  constructor(page: Page) {
+    this.page = page;
+  }
 
-    async goto(path: string): Promise<void> {
-        await this.page.goto(path, { waitUntil: 'domcontentloaded' });
-    }
+  async goto(path: string): Promise<void> {
+    await this.page.goto(path, { waitUntil: 'domcontentloaded' });
+  }
 }
