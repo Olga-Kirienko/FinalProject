@@ -46,4 +46,8 @@ export class CartPage {
       '[data-original-title="Remove"]'
     );
   }
+
+  getAnyRemoveButton(): Locator {
+    return this.page.locator('[data-original-title="Remove"]').first();
+  }
 }

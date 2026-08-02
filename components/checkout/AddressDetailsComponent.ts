@@ -70,7 +70,16 @@ export class AddressDetailsComponent {
   }
 
   async selectCountry(country: string): Promise<void> {
+    const previousZoneOptions = await this.regionInput.innerText();
+
     await this.countryInput.selectOption({ label: country });
+
+    // техническая синхронизация: смена Country пересобирает список <option>
+    // в Region клиентским JS, без обращения к серверу (Network это подтвердил —
+    // ни одного XHR/Fetch запроса при смене страны). Ждём, пока сам список
+    // регионов реально перерисуется, а не то, какое value в итоге окажется
+    // выбрано (оно может остаться "" и до, и после — это не признак обновления)
+    await expect(this.regionInput).not.toHaveText(previousZoneOptions);
   }
 
   async selectRegion(region: string): Promise<void> {

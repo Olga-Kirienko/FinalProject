@@ -1,5 +1,6 @@
 import { type Locator, type Page } from '@playwright/test';
 
+export type Currency = '€ Euro' | '£ Pound Sterling' | '$ US Dollar';
 export class Header {
   readonly page: Page;
   readonly searchInput: Locator;
@@ -7,6 +8,8 @@ export class Header {
   readonly cartButton: Locator;
   readonly viewCartLink: Locator;
   readonly checkoutLink: Locator;
+  readonly wishlistLink: Locator;
+  readonly currencyToggle: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,6 +22,8 @@ export class Header {
       name: 'Checkout',
       exact: true,
     });
+    this.wishlistLink = page.getByRole('link', { name: /Wish List \(\d+\)/ });
+    this.currencyToggle = page.getByRole('button', { name: /Currency/ });
   }
 
   async searchFor(query: string, method: 'enter' | 'click'): Promise<void> {
@@ -36,8 +41,17 @@ export class Header {
     await this.viewCartLink.click();
   }
 
+  async goToWishlist(): Promise<void> {
+    await this.wishlistLink.click();
+  }
+
   async goToCheckout(): Promise<void> {
     await this.cartButton.click();
     await this.checkoutLink.click();
+  }
+
+  async switchCurrency(currency: Currency): Promise<void> {
+    await this.currencyToggle.click();
+    await this.page.getByRole('button', { name: currency }).click();
   }
 }

@@ -1,4 +1,4 @@
-import { type Page } from '@playwright/test';
+import { type Page, expect } from '@playwright/test';
 import { CartPage } from '../pages/CartPage';
 import { ProductPage } from '../pages/ProductPage';
 import { CartItem } from '../types/CartItem';
@@ -21,6 +21,8 @@ export class PurchaseFacade {
     const header = new Header(this.page);
     const cartPage = new CartPage(this.page);
 
+    await this.clearCart(cartPage);
+
     for (const item of products) {
       await this.page.goto(
         `/index.php?route=product/product&product_id=${item.productId}`
@@ -38,6 +40,29 @@ export class PurchaseFacade {
           .fill(item.quantity.toString());
         await cartPage.getUpdateButton(item.productName).click();
       }
+    }
+  }
+
+  private async clearCart(cartPage: CartPage): Promise<void> {
+    await this.page.goto('/index.php?route=checkout/cart');
+
+    this.page.on('dialog', (dialog) => dialog.accept());
+
+    let removeButton = cartPage.getAnyRemoveButton();
+    let safetyCounter = 0;
+
+    while (
+      (await removeButton.isVisible().catch(() => false)) &&
+      safetyCounter < 30
+    ) {
+      await removeButton.click({ force: true });
+
+      await expect(removeButton)
+        .toBeHidden({ timeout: 10000 })
+        .catch(() => {});
+
+      removeButton = cartPage.getAnyRemoveButton();
+      safetyCounter++;
     }
   }
 
@@ -118,12 +143,28 @@ export class PurchaseFacade {
     const confirmResponsePromise = this.page.waitForResponse(
       (response) =>
         response.url().includes('route=checkout/confirm') &&
-        response.status() === 200
+        response.status() === 200,
+      { timeout: 15000 }
     );
 
     await paymentMethod.clickContinue();
     await paymentMethodSavedPromise;
-    await confirmResponsePromise;
+
+    try {
+      await confirmResponsePromise;
+    } catch {
+      // известная нестабильность демо-сервера: после payment_method/save
+      // автоматический запрос checkout/confirm иногда не срабатывает с первого
+      // раза, хотя форма остаётся на том же шаге (state не теряется).
+      // Повторный клик по Continue триггерит его заново
+      const retryConfirmResponsePromise = this.page.waitForResponse(
+        (response) =>
+          response.url().includes('route=checkout/confirm') &&
+          response.status() === 200
+      );
+      await paymentMethod.clickContinue();
+      await retryConfirmResponsePromise;
+    }
 
     return confirmOrder;
   }

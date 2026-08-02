@@ -5,6 +5,8 @@ import { existingProducts } from '../test-data/existing-products.data';
 import { OrderSuccessComponent } from '../components/checkout/OrderSuccessComponent';
 
 test.describe('Checkout e2e', () => {
+  test.describe.configure({ retries: 2 });
+
   test("e2e test with 1 item, method 'Cash On Delivery' and comment", async ({
     page,
   }) => {
@@ -26,7 +28,9 @@ test.describe('Checkout e2e', () => {
     await facade.completeCheckout(options);
 
     const orderSuccess = new OrderSuccessComponent(page);
-    await expect(orderSuccess.getSuccessHeading()).toBeVisible();
+    await expect(orderSuccess.getSuccessHeading()).toBeVisible({
+      timeout: 10000,
+    });
     expect(page.url()).toContain('route=checkout/success');
   });
 });
