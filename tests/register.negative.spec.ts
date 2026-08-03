@@ -32,8 +32,7 @@ test.describe('Registration negative cases', () => {
   }
 
   test('Registration with already existing email', async ({ page }) => {
-    // email берётся из файла .auth/existing-user.json
-    // который создаётся динамически во время auth.setup.ts
+
     const existingUser = JSON.parse(
       fs.readFileSync('.auth/existing-user.json', 'utf-8')
     );

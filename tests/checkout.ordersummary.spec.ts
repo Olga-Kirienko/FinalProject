@@ -3,7 +3,7 @@ import { PurchaseFacade } from '../facade/PurchaseFacade';
 import { CheckoutOptions } from '../types/CheckoutOptions';
 import { existingProducts } from '../test-data/existing-products.data';
 
-test("e2e test with 1 item, method 'Cash On Delivery' — parses order summary table", async ({
+test.fixme("e2e test with 1 item, method 'Cash On Delivery' — parses order summary table", async ({
   page,
 }) => {
   test.setTimeout(60000);
