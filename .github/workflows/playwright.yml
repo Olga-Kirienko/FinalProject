@@ -104,3 +104,32 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
+
+      - name: Prepare Telegram message
+        id: message
+        run: |
+          TOTAL=$(jq '.statistic.total' allure-history/widgets/summary.json)
+          PASSED=$(jq '.statistic.passed' allure-history/widgets/summary.json)
+          FAILED=$(jq '.statistic.failed' allure-history/widgets/summary.json)
+          BROKEN=$(jq '.statistic.broken' allure-history/widgets/summary.json)
+          SKIPPED=$(jq '.statistic.skipped' allure-history/widgets/summary.json)
+
+          {
+            echo "text<<EOF"
+            echo "Playwright tests finished"
+            echo "Total: $TOTAL"
+            echo "Passed: $PASSED"
+            echo "Failed: $FAILED"
+            echo "Broken: $BROKEN"
+            echo "Skipped: $SKIPPED"
+            echo ""
+            echo "Report: https://olga-kirienko.github.io/FinalProject/"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Send Telegram notification
+        if: always()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            --data-urlencode "chat_id=${{ secrets.TELEGRAM_CHAT_ID }}" \
+            --data-urlencode "text=${{ steps.message.outputs.text }}"
