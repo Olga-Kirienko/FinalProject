@@ -10,6 +10,7 @@ export class AddressDetailsComponent {
   readonly companyInput: Locator;
   readonly address2Input: Locator;
   readonly postCodeInput: Locator;
+
   readonly countryInput: Locator;
   readonly regionInput: Locator;
   readonly continueButton: Locator;
