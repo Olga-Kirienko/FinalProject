@@ -7,6 +7,7 @@ export class ProductPage {
   readonly addToWishlistButton: Locator;
   readonly wishlistSuccessMessage: Locator;
   readonly price: Locator;
+  readonly addToCartSuccessMessage: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -22,7 +23,8 @@ export class ProductPage {
     this.addToWishlistButton = page
       .locator('[data-original-title="Add to Wish List"]')
       .first();
-    this.wishlistSuccessMessage = page.getByText('Success: You have added');
+    this.wishlistSuccessMessage = page.getByText('to your wish list');
+    this.addToCartSuccessMessage = page.getByText('to your shopping cart');
     this.price = page
       .locator('#content .col-sm-4')
       .getByRole('heading', { level: 2 });

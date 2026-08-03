@@ -2,7 +2,7 @@
   "cookies": [
     {
       "name": "OCSESSID",
-      "value": "8a420420ed7c111b88b07c6ac9",
+      "value": "dccf67b2f751132a21071e3eb8",
       "domain": "opencart.abstracta.us",
       "path": "/",
       "expires": -1,
@@ -15,7 +15,7 @@
       "value": "en-gb",
       "domain": ".opencart.abstracta.us",
       "path": "/",
-      "expires": 1788350242.433151,
+      "expires": 1788374385.161877,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
@@ -25,7 +25,7 @@
       "value": "USD",
       "domain": ".opencart.abstracta.us",
       "path": "/",
-      "expires": 1788350242.433292,
+      "expires": 1788374385.161996,
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"

@@ -16,6 +16,8 @@ test('Adding a product to the cart and checking its name and quantity in the car
   );
   await productPage.addToCart();
 
+  await expect(productPage.addToCartSuccessMessage).toBeVisible();
+
   await expect(header.cartButton).toHaveText(/1 item\(s\)/);
 
   await header.goToCart();
