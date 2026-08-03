@@ -37,19 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - project: chromium
-            browser: chromium
-            install: 'chromium chromium-headless-shell'
-          - project: firefox
-            browser: firefox
-            install: 'firefox'
-          - project: webkit
-            browser: webkit
-            install: 'webkit'
-          - project: 'Mobile Safari'
-            browser: webkit
-            install: 'webkit'
+        browser: [chromium, firefox, webkit, 'Mobile Safari']
     steps:
       - uses: actions/checkout@v4
 
@@ -61,33 +49,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Кэшируем браузеры по конкретному движку (chromium/firefox/webkit),
-      # чтобы Mobile Safari (тоже webkit) переиспользовал тот же кэш, что и webkit
-      - name: Cache Playwright browsers
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ matrix.browser }}-${{ hashFiles('package-lock.json') }}
-
-      # Всегда запускаем install (не только при cache miss): если бинарники уже на диске,
-      # Playwright сам это определит и пропустит скачивание — быстро. Зато мы не рискуем
-      # получить ситуацию, когда какой-то бинарник (например chromium-headless-shell)
-      # не попал в кэш и не был доустановлен.
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps ${{ matrix.install }}
-        env:
-          # без этого apt может зависнуть на интерактивном промпте needrestart
-          DEBIAN_FRONTEND: noninteractive
-
+        run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test --project="${{ matrix.project }}"
+        run: npx playwright test --project="${{ matrix.browser }}"
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report-${{ matrix.project }}
+          name: playwright-report-${{ matrix.browser }}
           path: playwright-report
           retention-days: 10
 
@@ -96,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: allure-results-${{ matrix.project }}
+          name: allure-results-${{ matrix.browser }}
           path: allure-results
           retention-days: 10
 
