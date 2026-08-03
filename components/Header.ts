@@ -48,7 +48,6 @@ export class Header {
   }
 
   async goToCheckout(): Promise<void> {
-    await this.cartButton.click();
     await this.checkoutLink.click();
   }
 
