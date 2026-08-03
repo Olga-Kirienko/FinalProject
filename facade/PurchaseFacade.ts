@@ -153,10 +153,8 @@ export class PurchaseFacade {
     try {
       await confirmResponsePromise;
     } catch {
-      // известная нестабильность демо-сервера: после payment_method/save
-      // автоматический запрос checkout/confirm иногда не срабатывает с первого
-      // раза, хотя форма остаётся на том же шаге (state не теряется).
-      // Повторный клик по Continue триггерит его заново
+      // unstable demo-server sometimes fails to respond to the first click on Continue button, so we retry
+      // second click triggers it again
       const retryConfirmResponsePromise = this.page.waitForResponse(
         (response) =>
           response.url().includes('route=checkout/confirm') &&

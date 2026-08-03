@@ -35,7 +35,7 @@ export class AddressDetailsComponent {
     });
 
     try {
-      await newAddressRadio.waitFor({ state: 'visible', timeout: 5000 });
+      await expect(newAddressRadio).toBeVisible({ timeout: 5000 });
       await newAddressRadio.click();
     } catch {
       // no code intentionally
@@ -75,11 +75,7 @@ export class AddressDetailsComponent {
 
     await this.countryInput.selectOption({ label: country });
 
-    // техническая синхронизация: смена Country пересобирает список <option>
-    // в Region клиентским JS, без обращения к серверу (Network это подтвердил —
-    // ни одного XHR/Fetch запроса при смене страны). Ждём, пока сам список
-    // регионов реально перерисуется, а не то, какое value в итоге окажется
-    // выбрано (оно может остаться "" и до, и после — это не признак обновления)
+    // waiting for the Region field to be updated
     await expect(this.regionInput).not.toHaveText(previousZoneOptions);
   }
 
