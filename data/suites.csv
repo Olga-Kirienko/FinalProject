@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","11113","Product price recalculates after currency switch","firefox","2026-08-03","passed","2026-08-03","","header.currency.spec.ts","",""
+"","3185","authenticate","setup","2026-08-03","passed","2026-08-03","","setup/auth.setup.ts","",""
+"","8761","Product price recalculates after currency switch","chromium","2026-08-03","passed","2026-08-03","","header.currency.spec.ts","",""
+"","13223","Product price recalculates after currency switch","webkit","2026-08-03","passed","2026-08-03","","header.currency.spec.ts","",""
+"","20108","Product price recalculates after currency switch","Mobile Safari","2026-08-03","passed","2026-08-03","","header.currency.spec.ts","",""
