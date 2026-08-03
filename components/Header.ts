@@ -22,8 +22,10 @@ export class Header {
       name: 'Checkout',
       exact: true,
     });
-    this.wishlistLink = page.getByRole('link', { name: /Wish List \(\d+\)/ });
-    this.currencyToggle = page.getByRole('button', { name: /Currency/ });
+    this.wishlistLink = this.wishlistLink =
+      page.getByTitle(/Wish List \(\d+\)/);
+    // here css is a compromise
+    this.currencyToggle = page.locator('#form-currency .dropdown-toggle');
   }
 
   async searchFor(query: string, method: 'enter' | 'click'): Promise<void> {

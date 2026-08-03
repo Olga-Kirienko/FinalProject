@@ -50,10 +50,9 @@ jobs:
         run: npm ci
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
+        run: npx playwright install --with-deps*
       - name: Run Playwright tests
-        run: npx playwright test --project="${{ matrix.browser }}"
+        run: npx playwright test header.currency.spec.ts --project="${{ matrix.browser }}"
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4

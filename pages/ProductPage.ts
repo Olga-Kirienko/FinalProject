@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import { type Locator, type Page, expect } from '@playwright/test';
 
 export class ProductPage {
   readonly page: Page;
@@ -40,5 +40,11 @@ export class ProductPage {
     const text = await this.price.innerText();
     const match = text.match(/[\d.,]+/);
     return match ? parseFloat(match[0].replace(',', '.')) : NaN;
+  }
+  // this is a sync wait, not a business assertion
+  async waitForPriceChange(previousPrice: number): Promise<void> {
+    await expect
+      .poll(async () => this.getPrice(), { timeout: 10000 })
+      .not.toBe(previousPrice);
   }
 }

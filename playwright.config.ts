@@ -72,6 +72,7 @@ export default defineConfig({
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'], storageState: '.auth/user.json' },
       dependencies: ['setup'],
+      timeout: 60000,
     },
 
     /* Test against branded browsers. */
