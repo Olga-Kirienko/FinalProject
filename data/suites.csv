@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","21649","e2e test with 1 item, method 'Cash On Delivery' and comment","chromium","2026-08-03","passed","2026-08-03","Checkout e2e","checkout.e2e.singleItem.spec.ts","",""
+"","38101","e2e test with 1 item, method 'Cash On Delivery' and comment","Mobile Safari","2026-08-03","passed","2026-08-03","Checkout e2e","checkout.e2e.singleItem.spec.ts","",""
+"","25762","e2e test with 1 item, method 'Cash On Delivery' and comment","firefox","2026-08-03","passed","2026-08-03","Checkout e2e","checkout.e2e.singleItem.spec.ts","",""
+"","31964","e2e test with 1 item, method 'Cash On Delivery' and comment","webkit","2026-08-03","passed","2026-08-03","Checkout e2e","checkout.e2e.singleItem.spec.ts","",""
+"","5898","authenticate","setup","2026-08-03","passed","2026-08-03","","setup/auth.setup.ts","",""
