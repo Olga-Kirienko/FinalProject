@@ -40,12 +40,16 @@ jobs:
         include:
           - project: chromium
             browser: chromium
+            install: 'chromium chromium-headless-shell'
           - project: firefox
             browser: firefox
+            install: 'firefox'
           - project: webkit
             browser: webkit
+            install: 'webkit'
           - project: 'Mobile Safari'
             browser: webkit
+            install: 'webkit'
     steps:
       - uses: actions/checkout@v4
 
@@ -66,19 +70,14 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ matrix.browser }}-${{ hashFiles('package-lock.json') }}
 
+      # Всегда запускаем install (не только при cache miss): если бинарники уже на диске,
+      # Playwright сам это определит и пропустит скачивание — быстро. Зато мы не рискуем
+      # получить ситуацию, когда какой-то бинарник (например chromium-headless-shell)
+      # не попал в кэш и не был доустановлен.
       - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps ${{ matrix.browser }}
+        run: npx playwright install --with-deps ${{ matrix.install }}
         env:
           # без этого apt может зависнуть на интерактивном промпте needrestart
-          DEBIAN_FRONTEND: noninteractive
-
-      # System-зависимости (либы для рендеринга и т.д.) не всегда попадают в кэш браузеров,
-      # поэтому доустанавливаем их отдельно и быстро, даже если сам браузер был взят из кэша
-      - name: Install OS dependencies
-        if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps ${{ matrix.browser }}
-        env:
           DEBIAN_FRONTEND: noninteractive
 
       - name: Run Playwright tests
