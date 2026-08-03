@@ -9,7 +9,6 @@ test.describe('Registration negative cases', () => {
 
   for (const testCase of invalidRegisterCases) {
     test(testCase.description, async ({ page }) => {
-      //создаёт валидного юзера, а затем поверх него накладывает испорченное поле из testCase.overrides
       const user = { ...createRandomUser(), ...testCase.overrides };
       const registerPage = new RegisterPage(page);
 
@@ -32,7 +31,6 @@ test.describe('Registration negative cases', () => {
   }
 
   test('Registration with already existing email', async ({ page }) => {
-
     const existingUser = JSON.parse(
       fs.readFileSync('.auth/existing-user.json', 'utf-8')
     );
