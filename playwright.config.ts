@@ -30,6 +30,9 @@ export default defineConfig({
 
     headless: true,
 
+    /* Ignore HTTPS certificate errors — the demo site's cert is occasionally expired/invalid on their end, this is out of our control */
+    ignoreHTTPSErrors: true,
+
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
