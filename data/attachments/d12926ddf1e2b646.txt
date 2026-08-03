@@ -1,2 +1,0 @@
-DEBUG priceBeforeSwitch: 122
-DEBUG priceAfterSwitch: 95.72
