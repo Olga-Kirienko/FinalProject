@@ -37,7 +37,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        browser: [chromium, firefox, webkit, 'Mobile Safari']
+        include:
+          - project: chromium
+            browser: chromium
+          - project: firefox
+            browser: firefox
+          - project: webkit
+            browser: webkit
+          - project: 'Mobile Safari'
+            browser: webkit
     steps:
       - uses: actions/checkout@v4
 
@@ -49,16 +57,38 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Кэшируем браузеры по конкретному движку (chromium/firefox/webkit),
+      # чтобы Mobile Safari (тоже webkit) переиспользовал тот же кэш, что и webkit
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ matrix.browser }}-${{ hashFiles('package-lock.json') }}
+
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+        env:
+          # без этого apt может зависнуть на интерактивном промпте needrestart
+          DEBIAN_FRONTEND: noninteractive
+
+      # System-зависимости (либы для рендеринга и т.д.) не всегда попадают в кэш браузеров,
+      # поэтому доустанавливаем их отдельно и быстро, даже если сам браузер был взят из кэша
+      - name: Install OS dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps ${{ matrix.browser }}
+        env:
+          DEBIAN_FRONTEND: noninteractive
+
       - name: Run Playwright tests
-        run: npx playwright test --project="${{ matrix.browser }}"
+        run: npx playwright test --project="${{ matrix.project }}"
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: playwright-report-${{ matrix.browser }}
+          name: playwright-report-${{ matrix.project }}
           path: playwright-report
           retention-days: 10
 
@@ -67,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: allure-results-${{ matrix.browser }}
+          name: allure-results-${{ matrix.project }}
           path: allure-results
           retention-days: 10
 
