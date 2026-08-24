@@ -1,0 +1,282 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: cart.spec.ts >> Adding a product to the cart and checking its name and quantity in the cart
+- Location: tests/cart.spec.ts:7:5
+
+# Error details
+
+```
+Error: expect(locator).toBeVisible() failed
+
+Locator: getByText('to your shopping cart')
+Expected: visible
+Timeout: 5000ms
+Error: element(s) not found
+
+Call log:
+  - Expect "toBeVisible" with timeout 5000ms
+  - waiting for getByText('to your shopping cart')
+
+```
+
+```yaml
+- navigation:
+  - button "$ Currency ":
+    - strong: $
+    - text: Currency 
+  - list:
+    - listitem:
+      - link "":
+        - /url: http://opencart.abstracta.us:80/index.php?route=information/contact
+      - text: "123456789"
+    - listitem:
+      - link " My Account":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/account
+    - listitem:
+      - link " Wish List (0)":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/wishlist
+    - listitem:
+      - link " Shopping Cart":
+        - /url: http://opencart.abstracta.us:80/index.php?route=checkout/cart
+    - listitem:
+      - link " Checkout":
+        - /url: https://opencart.abstracta.us:443/index.php?route=checkout/checkout
+- banner:
+  - heading "Your Store" [level=1]:
+    - link "Your Store":
+      - /url: http://opencart.abstracta.us:80/index.php?route=common/home
+  - textbox "Search"
+  - button ""
+  - button " 1 item(s) - $122.00"
+- navigation:
+  - list:
+    - listitem:
+      - link "Desktops":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=20
+    - listitem:
+      - link "Laptops & Notebooks":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=18
+    - listitem:
+      - link "Components":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=25
+    - listitem:
+      - link "Tablets":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=57
+    - listitem:
+      - link "Software":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=17
+    - listitem:
+      - link "Phones & PDAs":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=24
+    - listitem:
+      - link "Cameras":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=33
+    - listitem:
+      - link "MP3 Players":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/category&path=34
+- list:
+  - listitem:
+    - link "":
+      - /url: http://opencart.abstracta.us:80/index.php?route=common/home
+  - listitem:
+    - link "iMac":
+      - /url: http://opencart.abstracta.us:80/index.php?route=product/product&product_id=41
+- list:
+  - listitem:
+    - link "iMac":
+      - /url: https://opencart.abstracta.us:443/image/cache/catalog/demo/imac_1-500x500.jpg
+      - img "iMac"
+  - listitem:
+    - link "iMac":
+      - /url: https://opencart.abstracta.us:443/image/cache/catalog/demo/imac_2-500x500.jpg
+      - img "iMac"
+  - listitem:
+    - link "iMac":
+      - /url: https://opencart.abstracta.us:443/image/cache/catalog/demo/imac_3-500x500.jpg
+      - img "iMac"
+- list:
+  - listitem:
+    - link "Description":
+      - /url: "#tab-description"
+  - listitem:
+    - link "Reviews (0)":
+      - /url: "#tab-review"
+- text: Just when you thought iMac had everything, now there´s even more. More powerful Intel Core 2 Duo processors. And more memory standard. Combine this with Mac OS X Leopard and iLife ´08, and it´s more all-in-one than ever. iMac packs amazing performance into a stunningly slim space.
+- button ""
+- button ""
+- heading "iMac" [level=1]
+- list:
+  - listitem:
+    - text: Brands
+    - link "Apple":
+      - /url: http://opencart.abstracta.us:80/index.php?route=product/manufacturer/info&manufacturer_id=8
+  - listitem: "Product Code: Product 14"
+  - listitem: "Availability: 479"
+- list:
+  - listitem:
+    - heading "$122.00" [level=2]
+  - listitem: "Ex Tax: $100.00"
+- text: Qty
+- textbox "Qty": "1"
+- button "Loading..." [disabled]
+- paragraph:
+  - text:     
+  - link "0 reviews":
+    - /url: ""
+  - text: /
+  - link "Write a review":
+    - /url: ""
+- separator
+- heading "Related Products" [level=3]
+- link "Apple Cinema 30\"":
+  - /url: http://opencart.abstracta.us:80/index.php?route=product/product&product_id=42
+  - img "Apple Cinema 30\""
+- heading "Apple Cinema 30\"" [level=4]:
+  - link "Apple Cinema 30\"":
+    - /url: http://opencart.abstracta.us:80/index.php?route=product/product&product_id=42
+- paragraph: The 30-inch Apple Cinema HD Display delivers an amazing 2560 x 1600 pixel resolution. Designed speci..
+- paragraph: "$110.00 $122.00 Ex Tax: $90.00"
+- button "Add to Cart "
+- button ""
+- button ""
+- contentinfo:
+  - heading "Information" [level=5]
+  - list:
+    - listitem:
+      - link "About Us":
+        - /url: http://opencart.abstracta.us:80/index.php?route=information/information&information_id=4
+    - listitem:
+      - link "Delivery Information":
+        - /url: http://opencart.abstracta.us:80/index.php?route=information/information&information_id=6
+    - listitem:
+      - link "Privacy Policy":
+        - /url: http://opencart.abstracta.us:80/index.php?route=information/information&information_id=3
+    - listitem:
+      - link "Terms & Conditions":
+        - /url: http://opencart.abstracta.us:80/index.php?route=information/information&information_id=5
+  - heading "Customer Service" [level=5]
+  - list:
+    - listitem:
+      - link "Contact Us":
+        - /url: http://opencart.abstracta.us:80/index.php?route=information/contact
+    - listitem:
+      - link "Returns":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/return/add
+    - listitem:
+      - link "Site Map":
+        - /url: http://opencart.abstracta.us:80/index.php?route=information/sitemap
+  - heading "Extras" [level=5]
+  - list:
+    - listitem:
+      - link "Brands":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/manufacturer
+    - listitem:
+      - link "Gift Certificates":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/voucher
+    - listitem:
+      - link "Affiliate":
+        - /url: https://opencart.abstracta.us:443/index.php?route=affiliate/login
+    - listitem:
+      - link "Specials":
+        - /url: http://opencart.abstracta.us:80/index.php?route=product/special
+  - heading "My Account" [level=5]
+  - list:
+    - listitem:
+      - link "My Account":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/account
+    - listitem:
+      - link "Order History":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/order
+    - listitem:
+      - link "Wish List":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/wishlist
+    - listitem:
+      - link "Newsletter":
+        - /url: https://opencart.abstracta.us:443/index.php?route=account/newsletter
+  - separator
+  - paragraph:
+    - text: Powered By
+    - link "OpenCart":
+      - /url: http://www.opencart.com
+    - text: Your Store © 2026
+- link "Bitnami":
+  - /url: /bitnami/index.html
+  - img "Bitnami"
+```
+
+# Test source
+
+```ts
+  1  | import { test, expect } from '../fixtures/cart.fixture';
+  2  | import { CartPage } from '../pages/CartPage';
+  3  | import { Header } from '../components/Header';
+  4  | import { ProductPage } from '../pages/ProductPage';
+  5  | import { existingProducts } from '../test-data/existing-products.data';
+  6  | 
+  7  | test('Adding a product to the cart and checking its name and quantity in the cart', async ({
+  8  |   page,
+  9  | }) => {
+  10 |   const header = new Header(page);
+  11 |   const cartPage = new CartPage(page);
+  12 |   const productPage = new ProductPage(page);
+  13 | 
+  14 |   await page.goto(
+  15 |     `/index.php?route=product/product&product_id=${existingProducts.imac.id}`
+  16 |   );
+  17 |   await productPage.addToCart();
+  18 | 
+> 19 |   await expect(productPage.addToCartSuccessMessage).toBeVisible();
+     |                                                     ^ Error: expect(locator).toBeVisible() failed
+  20 | 
+  21 |   await expect(header.cartButton).toHaveText(/1 item\(s\)/);
+  22 | 
+  23 |   await header.goToCart();
+  24 | 
+  25 |   await expect(
+  26 |     cartPage.productRow(existingProducts.imac.product)
+  27 |   ).toBeVisible();
+  28 | 
+  29 |   await expect(
+  30 |     cartPage.getQuantityInput(existingProducts.imac.product)
+  31 |   ).toHaveValue('1');
+  32 | });
+  33 | 
+  34 | test('Changing product quantity recalculates total number and sum', async ({
+  35 |   cartWithProduct,
+  36 | }) => {
+  37 |   const { product } = existingProducts.imac;
+  38 |   const unitPriceText = await cartWithProduct
+  39 |     .getUnitPrice(product)
+  40 |     .textContent();
+  41 |   const unitPrice = parseFloat(unitPriceText!.replace('$', ''));
+  42 |   const expectedTotal = `$${(unitPrice * 2).toFixed(2)}`;
+  43 | 
+  44 |   await cartWithProduct.getQuantityInput(product).fill('2');
+  45 |   await cartWithProduct.getUpdateButton(product).click();
+  46 | 
+  47 |   await expect(cartWithProduct.getQuantityInput(product)).toHaveValue('2');
+  48 |   await expect(cartWithProduct.getRowTotal(product)).toHaveText(expectedTotal);
+  49 | });
+  50 | 
+  51 | test('Removing The product from the cart', async ({ cartWithProduct }) => {
+  52 |   const { product } = existingProducts.imac;
+  53 | 
+  54 |   await cartWithProduct.getRemoveButton(product).click();
+  55 |   await expect(cartWithProduct.productRow(product)).toHaveCount(0);
+  56 | });
+  57 | 
+  58 | test('Applying an invalid coupon', async ({ cartWithProduct }) => {
+  59 |   await cartWithProduct.useCouponCodeLink.click();
+  60 |   await cartWithProduct.couponInput.fill('1111');
+  61 |   await cartWithProduct.applyCouponButton.click();
+  62 | 
+  63 |   await expect(cartWithProduct.couponMessage).toBeVisible();
+  64 | });
+  65 | 
+```
