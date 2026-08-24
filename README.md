@@ -173,4 +173,3 @@ npm run format       # отформатировать Prettier
 запускаются в GitHub Actions (`.github/workflows/playwright.yml`).
 При падении тестов в артефакты прогона сохраняются скриншоты, видео и трейсы
 для разбора причин.
-
