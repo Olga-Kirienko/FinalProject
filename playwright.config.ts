@@ -65,6 +65,10 @@ export default defineConfig({
       use: { ...devices['Desktop Safari'], storageState: '.auth/user.json' },
       dependencies: ['setup'],
     },
+    {
+      name: 'api',
+      testDir: './tests/api_testing', // folder with API tests, no dependencies
+    },
 
     /* Test against mobile viewports. */
     // {
