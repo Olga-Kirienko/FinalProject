@@ -91,7 +91,6 @@ jobs:
           node-version: lts/*
           cache: 'npm'
 
-
       - name: Download all Allure Results
         uses: actions/download-artifact@v4
         with:
