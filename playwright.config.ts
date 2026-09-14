@@ -52,22 +52,27 @@ export default defineConfig({
         storageState: '.auth/user.json',
       },
       dependencies: ['setup'],
+      testIgnore: '**/api_testing/**',
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'], storageState: '.auth/user.json' },
       dependencies: ['setup'],
+      testIgnore: '**/api_testing/**',
     },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'], storageState: '.auth/user.json' },
       dependencies: ['setup'],
+      testIgnore: '**/api_testing/**',
     },
     {
       name: 'api',
-      testDir: './tests/api_testing', // folder with API tests, no dependencies
+      testDir: './tests/api_testing',
+      use: { storageState: undefined },
+      // folder with API tests, no dependencies
     },
 
     /* Test against mobile viewports. */
