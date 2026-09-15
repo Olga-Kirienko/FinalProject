@@ -49,11 +49,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Restore auth state file
-        run: |
-          mkdir -p .auth
-          echo "${{ secrets.EXISTING_USER_AUTH_B64 }}" | base64 -d > .auth/existing-user.json
-          echo "${{ secrets.USER_AUTH_B64 }}" | base64 -d > .auth/user.json
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
