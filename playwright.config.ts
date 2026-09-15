@@ -88,6 +88,7 @@ export default defineConfig({
       use: { ...devices['iPhone 12'], storageState: '.auth/user.json' },
       dependencies: ['setup'],
       timeout: 60000,
+      testIgnore: '**/api_testing/**',
     },
 
     /* Test against branded browsers. */
