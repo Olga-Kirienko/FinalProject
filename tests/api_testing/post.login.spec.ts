@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('логин с валидными данными создаёт сессию и открывает доступ к аккаунту', async ({
+test('login with valid credentials creates a session and grants access to the account', async ({
   request,
 }) => {
   const loginResponse = await request.post(
