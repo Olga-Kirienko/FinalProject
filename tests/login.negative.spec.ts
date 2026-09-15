@@ -7,9 +7,13 @@ import { Credentials } from '../types/Credentials';
 test.describe('Login negative cases', () => {
   test.use({ storageState: { cookies: [], origins: [] } });
 
-  const existingUser: Credentials = JSON.parse(
-    fs.readFileSync('.auth/existing-user.json', 'utf-8')
-  );
+  let existingUser: Credentials;
+
+  test.beforeAll(async () => {
+    existingUser = JSON.parse(
+      fs.readFileSync('.auth/existing-user.json', 'utf-8')
+    );
+  });
 
   for (const testCase of invalidLoginCases) {
     test(testCase.description, async ({ page }) => {
